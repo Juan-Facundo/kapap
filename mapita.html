@@ -1,0 +1,26 @@
+<html>
+<head>
+      <style type="text/css">
+       html, body, #basicMap {
+       height: 250px;
+       margin: 0;
+           }
+</style><script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script>
+function init() {
+map = new OpenLayers.Map("basicMap");
+var mapnik         = new OpenLayers.Layer.OSM();
+var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+var position       = new OpenLayers.LonLat(-68.0625309,-38.9604646).transform( fromProjection, toProjection);
+var zoom           = 16;
+map.addLayer(mapnik);
+map.setCenter(position, zoom );
+      }
+  </script>
+  </head>
+   <body onload="init();">
+  <div id="basicMap"></div><br />
+  </body>
+  </html>
+
