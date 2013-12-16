@@ -19,6 +19,9 @@ $backgrounds = new WP_Query(array(
 
 <div class="lista_contenedor">
 
+<h1>Centros de entrenamiento KAPAP</h1>
+<h4>Donde entrenar kapap en argentina</h4>
+
 <?php
 // The Loop
 if (have_posts()) :
@@ -48,6 +51,16 @@ if (have_posts()) :
   ?>
 
     <div class="centro_info">
+
+      <?php if (has_post_thumbnail($post->ID)) : ?> 
+      <div class="logo-centro">
+        <a href="<?php echo site_url();?>/centros-kapap/<?php echo $slug;?>">
+          <?php echo get_the_post_thumbnail($post->ID, thumbnail); ?>
+        </a>
+      </div>
+      <?php endif; ?>
+
+
       <?php echo 'Domicilio: '.$calle.' '.$numero.', '.$cpostal.'<br />';?>
       <?php echo $ciudad.', '.$provincia.', '.$pais.'<br />';?>
       <?php echo 'Instructor a Cargo: '.$instructor.'<br />';?>

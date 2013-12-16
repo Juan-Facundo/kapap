@@ -63,10 +63,29 @@ global $themify; ?>
   $query="http://www.openstreetmap.org/?mlat=$lat&mlon=$lon&zoom=16#map=16/$lat/$lon&layer=mapnik";
   ?>
   </div><!-- desc_centro -->
-  <iframe class="mapa_centro" scrolling="no"
-    src="<?php echo $query; ?>">
-  </iframe>
 
+  <div id="mapa_centro" scrolling="no">
+  </div>
+
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+  <script>
+    var lon            = <?php echo $lon; ?>;
+    var lat            = <?php echo $lat; ?>;
+    var zoom           = 16;
+    var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+    var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+    var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+    map = new OpenLayers.Map("mapa_centro");
+    var mapnik         = new OpenLayers.Layer.OSM();
+    map.addLayer(mapnik);
+    var markers = new OpenLayers.Layer.Markers( "Markers" );
+    map.addLayer(markers);
+    markers.addMarker(new OpenLayers.Marker(position));
+    map.setCenter(position, zoom);
+
+  </script>
+
+  <a class="mg_link" target="_blank" href="<?php echo $query; ?>;">Ver en mapa grande</a>
 <?php endwhile; ?>
 
 <div class="miembros_centro">
